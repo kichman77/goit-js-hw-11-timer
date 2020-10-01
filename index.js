@@ -11,11 +11,14 @@ class CountdownTimer {
     this.targetDate = date.targetDate;
     this.deltaTime = 0;
   }
+  pad(value) {
+    return String(value).padStart(2, "0");
+  }
   updateClockFace(time) {
-    const days = Math.floor(time / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const mins = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60));
-    const secs = Math.floor((time % (1000 * 60)) / 1000);
+    const days = this.pad(Math.floor(time / (1000 * 60 * 60 * 24)));
+    const hours = this.pad(Math.floor((time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)));
+    const mins = this.pad(Math.floor((time % (1000 * 60 * 60)) / (1000 * 60)));
+    const secs = this.pad(Math.floor((time % (1000 * 60)) / 1000));
     timerRefs.daysSpan.textContent = days;
     timerRefs.hoursSpan.textContent = hours;
     timerRefs.minutesSpan.textContent = mins;
@@ -27,15 +30,15 @@ class CountdownTimer {
       // console.log(currentDate);
       this.deltaTime = this.targetDate - currentDate;
       // console.log(this.deltaTime);
-      this.updateClockFace(this.deltaTime)
-    },1000)
+      this.updateClockFace(this.deltaTime);
+    }, 1000);
   }
 }
 
 new CountdownTimer({
-  selector: '#timer-1',
-  targetDate: new Date('Oct 15, 2020'),
-}).start()
+  selector: "#timer-1",
+  targetDate: new Date("Oct 15, 2020"),
+}).start();
 
 /*
  * Оставшиеся дни: делим значение UTC на 1000 * 60 * 60 * 24, количество
